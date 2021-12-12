@@ -25,7 +25,7 @@
 local FunTable=RWrequire(CommonStorage["FunTable"]) -- 函数表
 
 --————————————————————游戏初始化————————————————————--
-local function ClientMain()
+local function AvatarAdded()
 	local bool = true
 	Players.PlayerAdded:Connect(function(Uid)
 			if bool == true then -- 等待玩家加载完成
@@ -40,7 +40,7 @@ local function ClientMain()
 			end
 		end)
 end
-ClientMain() -- 调用客户端主函数
+AvatarAdded()
 --————————————————————————————————————————ClientExpression————————————————————————————————————————--
 -- 此处编写客户端表现
 

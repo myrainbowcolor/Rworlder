@@ -3,19 +3,23 @@
 1. 放在**ClientMain**脚本下:
 - 代码:
 
+
 ```lua
-local FunTable=RWrequire(CommonStorage["FunTable"])
+
+
+local FunTable=RWrequire(CommonStorage["FunTable"]) -- 函数表
 
 --————————————————————游戏初始化————————————————————--
 local function ClientMain()
 	local bool = true
 	Players.PlayerAdded:Connect(function(Uid)
-			if bool == true then
+			if bool == true then -- 等待玩家加载完成
 				bool = false
 				local player=Players:GetPlayerByUserId(Uid)
 				player.AvatarAdded:Connect(function(avatar)
-						FunTable.InitTable.UI(Uid) --初始化UI界面
+						FunTable.InitTable.UI(Uid) --调用初始化UI界面函数
 
+						-- 此处添加角色加载完成后执行客户端的代码
 						-- 此处修改图片ID
 						-- image_num 引导图片数量 ;imageid_table 引导图片ID表(类型:table) ;leftbutton_id 左边按钮图片ID ;rightbutton_id 右边按钮图片ID ;playerknowbutton_id 我知道了按钮ID
 						local image_num=3
@@ -25,20 +29,28 @@ local function ClientMain()
 						local leftbutton_id="rwid://T7kKPKA0hR0.9okijN"
 						local rightbutton_id="rwid://T7xdPKZFiR0.9okijN"
 						local playerknowbutton_id="rwid://T7k.PKVMkR0.9okijN"
---						FunTable.InitTable.Guide(image_num ,imageid_table ,leftbutton_id ,rightbutton_id ,playerknowbutton_id) -- 调用新手引导系统
+						FunTable.InitTable.Guide(image_num ,imageid_table ,leftbutton_id ,rightbutton_id ,playerknowbutton_id) -- 调用新手引导系统
 
-						local S_C = "Client"
-						FunTable.InitTable.Shop(player,S_C) -- 调用商店系统(客户端)
 					end)
 			end
 		end)
 end
 ClientMain() -- 调用客户端主函数
+--————————————————————————————————————————ClientExpression————————————————————————————————————————--
+-- 此处编写客户端表现
+
+--————————————————————————————————————————ClientLogic————————————————————————————————————————--
+-- 此处编写客户端逻辑代码
+
+
 ```
+
+
 - 视图:
 
 　　　　　　层级:   	
 　　　　　　![图](/图片/ClientMain.png)
+
 
 2. 放在**ServerMain**下:
 - 代码:
@@ -62,12 +74,16 @@ FunTable.InitTable.Value()
 　　　　ServerMain运行前:　　　　　　　　　　　　ServerMain运行后:   	
 　　　　![图](/图片/ServerMain.png)　　　　![图](/图片/Folder.png)
 
+
 3. 放在**FunTable**下:
 - 代码:
 
+
 ```reworld_lua
+
+
 -- InitTable 初始化函数表 ; MyCallTable 用户自定义调用函数表 ; SysCallTable 系统定义调用函数表
-local FunTable={ InitTable = {}, MyCallTable = {}, SysCallTable = {}, TextTable = {} } -- 函数表
+local FunTable={ InitTable = {}, MyCallTable = {}, SysCallTable = {}} -- 函数表
 -- 随机种子
 math.randomseed(tostring(os.time()):reverse():sub(1, 7))
 --——————————————————————————————————————InitTable = {}——————————————————————————————————————--
@@ -190,13 +206,8 @@ function FunTable.InitTable.Value()
 		EnvironmentWorldRotation.Value=Vector3(0,0,0)
 	end
 end
---——————————新手引导初始化——————————--
-function FunTable.InitTable.Guide(image_num ,imageid_table ,leftbutton_id ,rightbutton_id ,playerknowbutton_id)
-	if Players:GetLocalPlayer()["GameUI"].guideParentPanel == nil then
-		BeginnerGuidance(image_num ,imageid_table ,leftbutton_id ,rightbutton_id ,playerknowbutton_id) -- 调用新手引导系统
-	end
-end
 --——————————————————————————CommonStorage——————————————————————————--
+
 --——————————————————————————Server——————————————————————————--
 --——————————角色数据初始化——————————--
 function FunTable.InitTable.Avatar(avatar)
@@ -245,8 +256,25 @@ end
 --——————————————————————————Client——————————————————————————--
 --——————————————————————————————————————InitTable = {}——————————————————————————————————————--
 
+
 --——————————————————————————————————————SysCallTable = {}——————————————————————————————————————--
+--——————————————————————————CommonStorage——————————————————————————--
+-- 此处编写通用存储模块代码
+--——————————新手引导初始化——————————--
+function FunTable.InitTable.Guide(image_num ,imageid_table ,leftbutton_id ,rightbutton_id ,playerknowbutton_id)
+	if Players:GetLocalPlayer()["GameUI"].guideParentPanel == nil then
+		BeginnerGuidance(image_num ,imageid_table ,leftbutton_id ,rightbutton_id ,playerknowbutton_id) -- 调用新手引导系统
+	end
+end
+--——————————————————————————CommonStorage——————————————————————————--
+
+--——————————————————————————Server——————————————————————————--
+-- 此处编写服务器代码
+
+--——————————————————————————Server——————————————————————————--
+
 --——————————————————————————Client——————————————————————————--
+-- 此处编写客户端代码
 --——————————新手引导函数——————————--
 -- 创建新手引导界面函数
 local function EstablishGuideUI(image_num,imageid_table,leftbutton_id,rightbutton_id,playerknowbutton_id)
@@ -293,6 +321,15 @@ local function EstablishGuideUI(image_num,imageid_table,leftbutton_id,rightbutto
 	playerKnow.SizeDelta=Vector2(300,170) -- 设置大小
 	playerKnow.SourceImage=playerknowbutton_id
 end
+-- 角色移动速度修改
+local function AvatarStopMove(agrs_move)
+	local avatar = Players:GetLocalPlayer().Avatar
+	if agrs_move == "stop" then
+		avatar.MoveSpeed = 0
+	elseif agrs_move == "move" then
+		avatar.MoveSpeed = CommonStorage["ValueFolder"]["NumFolder"]["AvatarMoveSpeed"].Value
+	end
+end
 -- 知道了点击函数
 local function PlayerKnow()
 	local player=Players:GetLocalPlayer() -- 玩家
@@ -301,6 +338,7 @@ local function PlayerKnow()
 	playerKnow.OnClick:Connect(function()
 			player["GameUI"]["guideParentPanel"].IgnoreRayCast = true --打开穿透
 			player["GameUI"]["guideParentPanel"].IsVisible=false -- 关闭新手引导界面
+			AvatarStopMove("move") -- 调用修改角色移动速度函数(恢复玩家速度)
 		end)
 end
 -- 左按钮点击函数
@@ -344,6 +382,7 @@ end
 function BeginnerGuidance(image_num ,imageid_table ,leftbutton_id ,rightbutton_id ,playerknowbutton_id)
 	if #imageid_table==image_num then -- 传入图片数量和id数一样
 		EstablishGuideUI(image_num ,imageid_table ,leftbutton_id ,rightbutton_id ,playerknowbutton_id) -- 调用创建新手引导界面函数
+		AvatarStopMove("stop") -- 调用修改角色移动速度函数(角色禁止移动)
 		local guideTable=Players:GetLocalPlayer()["GameUI"]["guideParentPanel"]:GetAllChild()
 		local guideImageTable={} -- 引导图片表
 		for k , v in ipairs(guideTable) do
@@ -360,8 +399,29 @@ end
 --——————————————————————————Client——————————————————————————--
 --——————————————————————————————————————SysCallTable = {}——————————————————————————————————————--
 
+
+--——————————————————————————————————————MyCallTable = {}——————————————————————————————————————--
+--——————————————————————————CommonStorage——————————————————————————--
+-- 此处添加你的通用模块代码
+
+--——————————————————————————CommonStorage——————————————————————————--
+
+--——————————————————————————Server——————————————————————————--
+-- 此处添加你的服务器代码
+
+--——————————————————————————Server——————————————————————————--
+
+--——————————————————————————Client——————————————————————————--
+-- 此处添加你的客户端代码
+
+--——————————————————————————Client——————————————————————————--
+--——————————————————————————————————————MyCallTable = {}——————————————————————————————————————--
+
 return FunTable
+
 ```
+
+
 - 视图:
 
 　　　　　　层级:   	
