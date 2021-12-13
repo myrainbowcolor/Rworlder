@@ -13,12 +13,13 @@
 * 客户端调用
 ** 每个本地角色加载事件触发
 *** 执行FunTable.InitTable.UI(Uid)
+*** 执行FunTable.InitTable.Guide(image_num ,imageid_table ,leftbutton_id ,rightbutton_id ,playerknowbutton_id)
 @endmindmap
 ```
 
 
 > [!note]*AvatarAdded()中的代码会在每个客户端加载完成的时候执行一次*
-- 放在**角色加载完成事件**中:
+- 放在**角色加载完成事件**中(客户端脚本):
 
 
 
@@ -36,7 +37,6 @@ local function AvatarAdded()
 				player.AvatarAdded:Connect(function(avatar)
 						FunTable.InitTable.UI(Uid) --调用初始化UI界面函数
 
-						-- 此处添加角色加载完成后执行客户端的代码
 						-- 此处添加角色加载完成后执行客户端的代码
 						-- 此处修改图片ID
 						-- image_num 引导图片数量 ;imageid_table 引导图片ID表(类型:table) ;leftbutton_id 左边按钮图片ID ;rightbutton_id 右边按钮图片ID ;playerknowbutton_id 我知道了按钮ID
@@ -69,12 +69,12 @@ AvatarAdded()
 　　　　　　![图](/图片/ClientMain.png)
   
   
-　　　　　　效果:  	
+　　　　　　示例:  	
 　　　　　　![图](/图片/ClientCode.png ':size=50%')
 
 
 > [!note]*不需要添加除框架以外的代码*
-
+- (服务器脚本)
 
 ```lua
 
@@ -100,16 +100,16 @@ FunTable.InitTable.Value()
 
 > [!note|label:视图]
 
-　　　　ServerMain运行前:  	
-　　　　![图](/图片/ServerMain.png)
+　　　　　　层级:  	
+　　　　　　![图](/图片/ServerMain.png)
   
   
 　　　　　　效果:  	
 　　　　　　![图](/图片/ServerCode.png ':size=50%')
 
 
-> [!note]*函数调用放在**SysCallTable的CommonStorage**中 ; 函数实现放在SysCallTable的Client中*
-
+> [!note]*函数调用放在**SysCallTable**的**CommonStorage**中 ; 函数实现放在**SysCallTable**的**Client**中*
+- (通用模块脚本)
 
 ```lua
 
@@ -459,7 +459,8 @@ return FunTable
 　　　　　　![图](/图片/FunTable.png)
 
 
-　　　　　　示例:  	
+　　　　　　示例:  
+　　　　　　*注: 代码已折叠*
 　　　　　　![图](/图片/FunTableCode.png ':size=50%')
 
 > [!note|label:效果]
