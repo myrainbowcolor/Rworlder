@@ -475,13 +475,12 @@ return FunTable
 
 
 　　　　　　示例:  
-　　　　　　*注: 代码已折叠*
+　　　　　　*注: 代码已折叠*  
 　　　　　　![图](/图片/FunTableCode.png ':size=50%')
 
 > [!note|label:效果]
 
-　　　　　　第一张引导图:　　　　　　　　　　第二张引导图:　　　　　　　　　　　　第三张引导图:   	
+　　　　　　一:　　　　　　　　　　二:　　　　　　　　　　　　三:   	
 　　　　　　![图](/图片/效果图1.png ':size=22%')　　　　　![图](/图片/效果图2.png ':size=22%')　　　　　　![图](/图片/效果图3.png ':size=22%')　　　　　　　　　　　　
 
-　　　　　　<!-- ![](/视频/示例.gif "-gifcontrol-mode=click;")
- -->
+　　　　　　![](/视频/引导.gif "-gifcontrol-mode=click;")
