@@ -246,6 +246,6 @@ return FunTable
  　　　　　　![图](/图片/FunTable.png)  
    
    
- 　　　　　　效果:  	
+ 　　　　　　示例:  	
  　　　　　　*注: 此处代码已折叠*  
  　　　　　　![图](/图片/FunCode.png ':size=50%')

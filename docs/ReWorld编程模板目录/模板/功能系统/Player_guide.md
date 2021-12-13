@@ -1,16 +1,33 @@
 > 新手引导系统:   	
-　　   	
-1. 放在**ClientMain**脚本下:
-- 代码:
+
+> [!note|label:逻辑图]
+```plantuml
+@startmindmap
+* 服务器调用
+** 执行FunTable.InitTable.Folder()
+** 执行FunTable.InitTable.Event()
+** 执行FunTable.InitTable.Value()
+*** 每个角色加载事件触发
+**** 执行FunTable.InitTable.Avatar(avatar)
+
+* 客户端调用
+** 每个本地角色加载事件触发
+*** 执行FunTable.InitTable.UI(Uid)
+@endmindmap
+```
+
+
+> [!note]*AvatarAdded()中的代码会在每个客户端加载完成的时候执行一次*
+- 放在**角色加载完成事件**中:
+
 
 
 ```lua
 
-
 local FunTable=RWrequire(CommonStorage["FunTable"]) -- 函数表
 
 --————————————————————游戏初始化————————————————————--
-local function ClientMain()
+local function AvatarAdded()
 	local bool = true
 	Players.PlayerAdded:Connect(function(Uid)
 			if bool == true then -- 等待玩家加载完成
@@ -19,6 +36,7 @@ local function ClientMain()
 				player.AvatarAdded:Connect(function(avatar)
 						FunTable.InitTable.UI(Uid) --调用初始化UI界面函数
 
+						-- 此处添加角色加载完成后执行客户端的代码
 						-- 此处添加角色加载完成后执行客户端的代码
 						-- 此处修改图片ID
 						-- image_num 引导图片数量 ;imageid_table 引导图片ID表(类型:table) ;leftbutton_id 左边按钮图片ID ;rightbutton_id 右边按钮图片ID ;playerknowbutton_id 我知道了按钮ID
@@ -35,27 +53,31 @@ local function ClientMain()
 			end
 		end)
 end
-ClientMain() -- 调用客户端主函数
+AvatarAdded()
 --————————————————————————————————————————ClientExpression————————————————————————————————————————--
 -- 此处编写客户端表现
 
 --————————————————————————————————————————ClientLogic————————————————————————————————————————--
 -- 此处编写客户端逻辑代码
 
-
 ```
 
 
-- 视图:
+> [!note|label:视图]
 
 　　　　　　层级:   	
 　　　　　　![图](/图片/ClientMain.png)
+  
+  
+　　　　　　效果:  	
+　　　　　　![图](/图片/ClientCode.png ':size=50%')
 
 
-2. 放在**ServerMain**下:
-- 代码:
+> [!note]*不需要添加除框架以外的代码*
 
-```reworld_lua
+
+```lua
+
 local FunTable=RWrequire(CommonStorage["FunTable"]) -- 函数表
 
 --————————————————————游戏初始化————————————————————--
@@ -67,20 +89,29 @@ FunTable.InitTable.Event()
 
 -- 初始化数值
 FunTable.InitTable.Value()
+
+--————————————————————————————————————————ServerExpression————————————————————————————————————————--
+-- 此处编写服务器表现
+
+--————————————————————————————————————————ServerLogic————————————————————————————————————————--
+-- 此处编写服务器逻辑
+
 ```
 
-- 视图:
+> [!note|label:视图]
 
-　　　　ServerMain运行前:　　　　　　　　　　　　ServerMain运行后:   	
-　　　　![图](/图片/ServerMain.png)　　　　![图](/图片/Folder.png)
+　　　　ServerMain运行前:  	
+　　　　![图](/图片/ServerMain.png)
+  
+  
+　　　　　　效果:  	
+　　　　　　![图](/图片/ServerCode.png ':size=50%')
 
 
-3. 放在**FunTable**下:
-- 代码:
+> [!note]*函数调用放在**SysCallTable的CommonStorage**中 ; 函数实现放在SysCallTable的Client中*
 
 
-```reworld_lua
-
+```lua
 
 -- InitTable 初始化函数表 ; MyCallTable 用户自定义调用函数表 ; SysCallTable 系统定义调用函数表
 local FunTable={ InitTable = {}, MyCallTable = {}, SysCallTable = {}} -- 函数表
@@ -422,18 +453,19 @@ return FunTable
 ```
 
 
-- 视图:
+> [!note|label:视图]
 
 　　　　　　层级:   	
 　　　　　　![图](/图片/FunTable.png)
 
-4. 效果:
-- 视图:
+
+　　　　　　示例:  	
+　　　　　　![图](/图片/FunTableCode.png ':size=50%')
+
+> [!note|label:效果]
 
 　　　　　　第一张引导图:　　　　　　　　　　第二张引导图:　　　　　　　　　　　　第三张引导图:   	
 　　　　　　![图](/图片/效果图1.png ':size=22%')　　　　　![图](/图片/效果图2.png ':size=22%')　　　　　　![图](/图片/效果图3.png ':size=22%')　　　　　　　　　　　　
 
-5. 视频展示:
-- 视频:
-
-　　　　　　<iframe height=498 width=510 src="">
+　　　　　　<!-- ![](/视频/示例.gif "-gifcontrol-mode=click;")
+ -->

@@ -16,7 +16,7 @@
 
 
 <!-- ![](charlie.gif) --><!-- gif播放 -->
-> [!note] *ClientMain()中的代码会在每个客户端加载完成的时候执行一次*
+> [!note] *AvatarAdded()中的代码会在每个客户端加载完成的时候执行一次*
 - 创建**ClientMain**客户端脚本:
 
 
@@ -55,5 +55,5 @@ AvatarAdded()
 　　　　　　![图](/图片/ClientMain.png)  
   
   
-　　　　　　效果:  	
+　　　　　　示例:  	
 　　　　　　![图](/图片/ClientCode.png ':size=50%')
