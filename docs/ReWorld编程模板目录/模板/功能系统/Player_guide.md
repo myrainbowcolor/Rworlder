@@ -80,6 +80,9 @@ AvatarAdded()
 
 local FunTable=RWrequire(CommonStorage["FunTable"]) -- 函数表
 
+
+local FunTable=RWrequire(CommonStorage["FunTable"]) -- 函数表
+
 --————————————————————游戏初始化————————————————————--
 -- 初始化文件层级
 FunTable.InitTable.Folder()
@@ -90,6 +93,18 @@ FunTable.InitTable.Event()
 -- 初始化数值
 FunTable.InitTable.Value()
 
+local function PlayerAdded()
+    Players.PlayerAdded:Connect(function(Uid)
+            local player=Players:GetPlayerByUserId(Uid)
+            player.AvatarAdded:Connect(function(avatar) -- 为每个玩家的角色注册角色加载完成触发事件
+                    FunTable.InitTable.Avatar(avatar) -- 初始化角色数据
+                end)
+
+            -- 此处添加玩家加载完成后执行的服务器代码
+            
+        end)
+end
+PlayerAdded()
 --————————————————————————————————————————ServerExpression————————————————————————————————————————--
 -- 此处编写服务器表现
 
