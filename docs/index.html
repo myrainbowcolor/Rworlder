@@ -44,8 +44,8 @@
 					paths: 'auto',
 					placeholder: '搜索',
 					noData: '未找到',
-					// 搜索标题的最大程级, 1 - 6
 					depth: 6,
+					namespace: 'HQZ'
 				},
 				// 代码复制配置
 				copyCode: {
@@ -113,14 +113,16 @@
 					pre: '<hr/>',
 					style: 'text-align: right;',
 					class: 'className',
-				}
+				},
+				ga: 'UA-XXXXX-Y'
 			}
 		</script>
 		<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 
 		<script src="/custom/plugins/docsify-scroll-to-top.min.js"></script>
+		<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
 		<script src="//unpkg.com/prismjs/components/prism-lua.min.js"></script><!--lua代码高亮-->
-		<script src="//cdn.bootcss.com/docsify/4.5.9/plugins/search.min.js"></script><!--全文搜索-->
+		<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script><!--全文搜索-->
 		<script src="//unpkg.com/docsify-copy-code"></script><!-- 复制 -->
 		<script src="//unpkg.com/docsify/lib/plugins/emoji.js"></script><!-- emoji -->
 		<script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script><!-- 图片缩放 -->
