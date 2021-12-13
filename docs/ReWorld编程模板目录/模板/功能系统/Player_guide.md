@@ -483,4 +483,5 @@ return FunTable
 　　　　　　一:　　　　　　　　　　二:　　　　　　　　　　　　三:   	
 　　　　　　![图](/图片/效果图1.png ':size=22%')　　　　　![图](/图片/效果图2.png ':size=22%')　　　　　　![图](/图片/效果图3.png ':size=22%')　　　　　　　　　　　　
 
+  　　　　　　示例:  
 　　　　　　![](/视频/引导.gif "-gifcontrol-mode=click;")

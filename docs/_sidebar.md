@@ -12,6 +12,7 @@
   <!-- - [功能系统](/ReWorld编程模板目录/模板/默认页面.md) -->
   - <font style="color:#03A89E;font-size:14px;font-weight:500">功能系统</font>
     - [新手引导系统](/ReWorld编程模板目录/模板/功能系统/Player_guide)
+	- [商城系统](/ReWorld编程模板目录/模板/功能系统/Shop)
   <!-- - [系统函数](/ReWorld编程模板目录/模板/默认页面.md) -->
   - <font style="color:#03A89E;font-size:14px;font-weight:500">系统函数</font>
     - [计时器函数](/ReWorld编程模板目录/模板/系统函数/Count_time)
