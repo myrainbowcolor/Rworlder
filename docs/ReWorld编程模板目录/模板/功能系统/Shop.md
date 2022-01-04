@@ -26,7 +26,7 @@
 @endmindmap
 ```
 
-> [!note]* 角色加载完成后 * **FunTable.InitTable.Shop(player,S_C)** * 都会执行一次 *
+> [!note] *角色加载完成后__FunTable.InitTable.Shop(player,S_C)__都会执行一次*
 - (客户端脚本)
 
 ```lua
@@ -67,11 +67,11 @@ AvatarAdded()
   
   
 　　　　　　示例:  	
-　　　　　　![图](/图片/ClientCode.png ':size=50%')
+　　　　　　![图](/图片/ClientLogic.jpg ':size=50%')
 
 
-> [!note]*对于**FunTable.SysCallTable.UpdateMonney(monney_value,Uid)**函数,该函数用于提供给使用者更新商城的金额数据 ;  
-在金额有变动时,需要调用该函数进行更新显示,值得注意的是,该函数传入的参数是更新后的金额,既先获取原有金额进行计算后在传入计算后的金额 .*
+> [!note]*对于__FunTable.SysCallTable.UpdateMonney(monney_value,Uid)__函数,该函数用于提供给使用者更新商城的金额数据*;  
+*在金额有变动时,需要调用该函数进行更新显示,值得注意的是,该函数传入的参数是更新后的金额,既先获取原有金额进行计算后在传入计算后的金额 .*
 - (服务器脚本)
 
 
@@ -124,11 +124,11 @@ PlayerAdded()
 
 
 　　　　　　层级:   	
-　　　　　　![图](/图片/ClientMain.png)
+　　　　　　![图](/图片/ServerMain.png)
   
   
 　　　　　　示例:  	
-　　　　　　![图](/图片/ClientCode.png ':size=50%')
+　　　　　　![图](/图片/ServerLogic.jpg ':size=50%')
 
 
 > [!note]
@@ -316,23 +316,13 @@ end
 --——————————————————————————————————————SysCallTable = {}——————————————————————————————————————--
 --——————————————————————————CommonStorage——————————————————————————--
 -- 此处编写通用存储模块代码
---——————————商城初始化——————————--
-function FunTable.InitTable.Shop(player,flag)
-	if flag == "Client" and player["GameUI"].shopUiPanel == nil then
-		local shopuitable_id = FunTable.SysCallTable.ShopTable.shopuitable_id --商店UI表
-		ShopClient(shopuitable_id,player) --调用客户端商店函数
-	elseif flag == "Server" then
-		local product_table = FunTable.SysCallTable.ShopTable.product_table --商店物品表
-		ShopServer(product_table,player) --调用服务器商店函数
-	end
-end
-
 --——————————商店系统——————————--
 -- 商店表
 FunTable.SysCallTable.ShopTable = {
-	-- 工作区商品模型组合单位名称
+	-- 工作区商品模型组合单位名称 , 类型:字符串
 	shop = "Shop" ,
-	--商品表
+	-- 商品表 , price 商品价格 ; name 商品名称 ; id 商品模型ID
+	-- 可自定义属性或添加新的商品项
 	product_table = {
 		[1] = {price = 10 , name = "A" , id = "rwid://T78iPKuulAti9xkijX"},
 		[2] = {price = 20 , name = "B" , id = "rwid://T7k.PK4RDGti9okijX"},
@@ -340,15 +330,15 @@ FunTable.SysCallTable.ShopTable = {
 	},
 	--商店UI的ID表
 	shopuitable_id={
-		leftButtonId="rwid://T7kKPKA0hR0.9okijN",
-		rightButtonId="rwid://T7kKPKA0hR0.9okijN",
-		shopButtonId="rwid://T7kKPKA0hR0.9okijN",
-		buyButtonId="rwid://T7k.PKVMkR0.9okijN",
-		closeButtonId="rwid://T7xdPKZFiR0.9okijN",
+		leftButtonId="rwid://T7k.PKFOH7sK9okijN",
+		rightButtonId="rwid://T7k.PK.yW7sK9okijN",
+		shopButtonId="rwid://T7kKPK5F2QsK9okijN",
+		buyButtonId="rwid://T7k.PKMC37sK9okijN",
+		closeButtonId="rwid://T7k.PKSR3QsK9okijN",
 		monneyImageId= "rwid://T7k.PKldUx0d9okijN",
-		monneyInsufficientId= "rwid://T7k.PKldUx0d9okijN",
-		buySuccessId= "rwid://T7k.PKldUx0d9okijN",
-		ownedshop = "rwid://T7k.PKldUx0d9okijN"
+		monneyInsufficientId= "rwid://T78iPK49U7sK9okijN",
+		buySuccessId= "rwid://T7kKPKPMP7sK9okijN",
+		ownedshop = "rwid://T78iPKU0xQsK9okijN"
 	}
 }
 -- 创建商店UI函数
@@ -376,21 +366,21 @@ local function EstablishUi(shopuitable_id,player)
 	-- 创建左按钮
 	local leftButton=RWObject:New("UiButton")
 	leftButton.Name="leftButton"
-	leftButton.SizeDelta=Vector2(200,150) --宽高
-	leftButton.AnchoredPosition=Vector2(-400,-120) --相对坐标
+	leftButton.SizeDelta=Vector2(200,110) --宽高
+	leftButton.AnchoredPosition=Vector2(-400,-200) --相对坐标
 	leftButton.SourceImage=shopuitable_id.leftButtonId --左按钮ID
 	leftButton.Parent=shopSubUiPanel --设置父级
 	-- 创建右按钮
 	local rightButton=RWObject:New("UiButton")
 	rightButton.Name="rightButton"
-	rightButton.SizeDelta=Vector2(200,150) --宽高
-	rightButton.AnchoredPosition=Vector2(400,-120) --相对坐标
+	rightButton.SizeDelta=Vector2(200,110) --宽高
+	rightButton.AnchoredPosition=Vector2(400,-200) --相对坐标
 	rightButton.SourceImage=shopuitable_id.rightButtonId --右按钮ID
 	rightButton.Parent=shopSubUiPanel --设置父级
 	-- 创建购买按钮
 	local buyButton=RWObject:New("UiButton")
 	buyButton.Name="buyButton"
-	buyButton.AnchoredPosition=Vector2(0,-150) --相对坐标
+	buyButton.AnchoredPosition=Vector2(0,-200) --相对坐标
 	buyButton.SizeDelta=Vector2(250,80) --宽高
 	buyButton.SourceImage=shopuitable_id.buyButtonId --购买按钮ID
 	buyButton.Parent=shopSubUiPanel --设置父级
@@ -398,7 +388,7 @@ local function EstablishUi(shopuitable_id,player)
 	local shopButton=RWObject:New("UiButton")
 	shopButton.Name="shopButton"
 	shopButton.AnchoredPosition=Vector2(500,320) --相对坐标
-	shopButton.SizeDelta=Vector2(120,120) --宽高
+	shopButton.SizeDelta=Vector2(130,130) --宽高
 	shopButton.SourceImage=shopuitable_id.shopButtonId --商店按钮ID
 	shopButton.IsVisible=false --默认关闭
 	shopButton.Parent=shopUiPanel --设置父级
@@ -406,7 +396,7 @@ local function EstablishUi(shopuitable_id,player)
 	local closeButton=RWObject:New("UiButton")
 	closeButton.Name="closeButton"
 	closeButton.AnchoredPosition=Vector2(500,320) --相对坐标
-	closeButton.SizeDelta=Vector2(120,120) --宽高
+	closeButton.SizeDelta=Vector2(220,120) --宽高
 	closeButton.SourceImage=shopuitable_id.closeButtonId --关闭按钮ID
 	closeButton.IsVisible=false --默认关闭
 	closeButton.Parent=shopUiPanel --设置父级
@@ -414,7 +404,7 @@ local function EstablishUi(shopuitable_id,player)
 	local monneyInsufficient = RWObject:New("UiImage")
 	monneyInsufficient.Name = "monneyInsufficient"
 	monneyInsufficient.AnchoredPosition=Vector2(0,100) --相对坐标
-	monneyInsufficient.SizeDelta=Vector2(300,120) --宽高
+	monneyInsufficient.SizeDelta=Vector2(300,100) --宽高
 	monneyInsufficient.SourceImage=shopuitable_id.monneyInsufficientId --金额不足图ID
 	monneyInsufficient.IgnoreRayCast=true --默认穿透
 	monneyInsufficient.IsVisible=false --默认关闭
@@ -423,7 +413,7 @@ local function EstablishUi(shopuitable_id,player)
 	local buySuccess = RWObject:New("UiImage")
 	buySuccess.Name = "buySuccess"
 	buySuccess.AnchoredPosition=Vector2(0,100) --相对坐标
-	buySuccess.SizeDelta=Vector2(300,120) --宽高
+	buySuccess.SizeDelta=Vector2(300,100) --宽高
 	buySuccess.SourceImage=shopuitable_id.buySuccessId --购买成功图ID
 	buySuccess.IgnoreRayCast=true --默认穿透
 	buySuccess.IsVisible=false --默认关闭
@@ -432,7 +422,7 @@ local function EstablishUi(shopuitable_id,player)
 	local ownedshop = RWObject:New("UiImage")
 	ownedshop.Name = "ownedshop"
 	ownedshop.AnchoredPosition=Vector2(0,100) --相对坐标
-	ownedshop.SizeDelta=Vector2(300,120) --宽高
+	ownedshop.SizeDelta=Vector2(300,100) --宽高
 	ownedshop.SourceImage=shopuitable_id.ownedshop --已拥有商品图ID
 	ownedshop.IgnoreRayCast=true --默认穿透
 	ownedshop.IsVisible=false --默认关闭
@@ -456,7 +446,7 @@ local function EstablishUi(shopuitable_id,player)
 	monneyText.Alignment = Enum.TextAnchor.MiddleLeft -- 文本位置:中左
 	monneyText.HorizontalOverflow=Enum.HorizontalWrapMode.Overflow --水平溢出
 	monneyText.VerticalOverflow=Enum.VerticalWrapMode.Truncate --垂直包裹
-	monneyText.TextColor=Vector3(0,0,0) --黑色
+	monneyText.TextColor=Vector3(255,255,255) --白色
 	monneyText.Parent=monneyUi --设置父级
 	-- 创建价格文本
 	local priceText=RWObject:New("UiText")
@@ -464,7 +454,7 @@ local function EstablishUi(shopuitable_id,player)
 	priceText.AnchoredPosition=Vector2(0,-70) --相对坐标
 	priceText.SizeDelta=Vector2(250,80) --宽高
 	priceText.Text=" " --默认为空
-	priceText.FontSize=35 --字体型号
+	priceText.FontSize=50 --字体型号
 	priceText.HorizontalOverflow=Enum.HorizontalWrapMode.Overflow --水平溢出
 	priceText.VerticalOverflow=Enum.VerticalWrapMode.Truncate --垂直包裹
 	priceText.TextColor=Vector3(0,255,0) --绿色
@@ -492,14 +482,23 @@ end
 -- 修改摄像机属性函数
 local function ChangeCameraData(camera_subject)
 	local camera=WorkSpace["Camera"] --摄像机
+	local chufa = camera_subject:GetChildByName("摄像机对象")
 	camera.CameraType=Enum.CameraType.Follow --摄像机跟随(解除固定状态下无法移动摄像机)
 	camera.Subject=camera_subject --摄像机对象
 	camera.FieldOfView=60 --摄像机FOV
 	camera.Distance=3 --摄像机距离
-	camera.Pitch=8 --垂直角度
+	camera.Occlusion = false -- 关闭摄像机碰撞
+--	camera.Pitch=8 --垂直角度**不起作用?
 	camera.Yaw=0 --水平角度
-	camera.Offset=Vector3(0,0.1,0) --偏移量
-	camera.CameraType=Enum.CameraType.Fixed --摄像机固定
+	camera.Offset=Vector3(0,-0.5,0) --偏移量
+	camera.Rotation = Vector3(chufa.Rotation.x , chufa.Rotation.y - 1 , chufa.Rotation.z) -- 摄像机朝向
+--	camera.Position = Vector3(chufa.Position.x , chufa.Position.y + 10 , chufa.Position.z) -- 摄像机位置**不起作用?
+	print(camera.Position)
+	print(camera.Rotation)
+	coroutine.start(function()
+			coroutine.wait(0.1) -- 等待摄像机数据修改完全
+			camera.CameraType=Enum.CameraType.Fixed --摄像机固定
+		end)
 end
 -- 显示商品信息函数
 local function ShowShopInfomation(id,player)
@@ -514,21 +513,19 @@ local function Trigger(player)
 	local shopUiPanel=player["GameUI"]["shopUiPanel"] --父级容器
 	local shopButton=shopUiPanel["shopButton"] --商店按钮
 	local flag=true
-	local shopModelTable=WorkSpace[FunTable.SysCallTable.ShopTable.shop]:GetAllChild() --商品模型表
-	for _ , v in pairs(shopModelTable) do
-		v["触发"].TriggerEnter:Connect(function(who)
-				if who:IsClass("Avatar") and flag==true then
-					flag=false
-					shopButton.IsVisible=true --打开商店按钮
-				end
-			end)
-		v["触发"].TriggerExit:Connect(function(who)
-				if who:IsClass("Avatar") and flag==false then
-					flag=true
-					shopButton.IsVisible=false --关闭商店按钮
-				end
-			end)
-	end
+	local chufa = WorkSpace["商店"]["触发"]
+	chufa.TriggerEnter:Connect(function(who)
+			if who:IsClass("Avatar") and flag==true then
+				flag=false
+				shopButton.IsVisible=true --打开商店按钮
+			end
+		end)
+	chufa.TriggerExit:Connect(function(who)
+			if who:IsClass("Avatar") and flag==false then
+				flag=true
+				shopButton.IsVisible=false --关闭商店按钮
+			end
+		end)
 end
 -- 商店按钮点击函数
 local function ShopButtonOnclick(player)
@@ -624,21 +621,27 @@ local function ShopBuyButtonOnclick(player , product_table)
 					local shopText = player["GameUI"]["shopUiPanel"]["shopSubUiPanel"]["shopText"] -- 商品名
 					MessageEvent:FireServer("记录已购商品名" , shopTable , shopText.Text) -- 调用服务器接受事件(存储已购商品名)
 					EstablishString(shopTable , shopText.Text) -- 调用装备商品和创建字符串对象函数
-					coroutine.wait(2)
-					buySuccess.IsVisible = false -- 关闭购买成功提示图
+					coroutine.start(function()
+							coroutine.wait(2)
+							buySuccess.IsVisible = false -- 关闭购买成功提示图
+						end)
 				else
 					print("金额不足")
 					local monneyInsufficient = player["GameUI"]["shopUiPanel"]["shopSubUiPanel"]["monneyInsufficient"]
 					monneyInsufficient.IsVisible = true -- 打开金额不足提示图
-					coroutine.wait(2)
-					monneyInsufficient.IsVisible = false -- 关闭金额不足提示图
+					coroutine.start(function()
+							coroutine.wait(2)
+							monneyInsufficient.IsVisible = false -- 关闭金额不足提示图
+						end)
 				end
 			else
 				print("已拥有该商品")
 				local ownedshop = player["GameUI"]["shopUiPanel"]["shopSubUiPanel"]["ownedshop"]
 				ownedshop.IsVisible = true -- 打开已拥有提示图
-				coroutine.wait(2)
-				ownedshop.IsVisible = false -- 关闭已拥有提示图
+				coroutine.start(function()
+						coroutine.wait(2)
+						ownedshop.IsVisible = false -- 关闭已拥有提示图
+					end)
 			end
 		end)
 end
@@ -695,7 +698,7 @@ local function InitBuyedShopString()
 					stringValue.Parent = CommonStorage["buyedShopClient"]
 				end
 			end
-			print("初始化已购商品字符串")
+			print("初始化已购商品字符串"..shop_name)
 		end)
 end
 -- 创建数据存储空间函数
@@ -712,7 +715,9 @@ local function LoadAccessory(product_table)
 		for _ , v in pairs(product_table) do
 			GetService("AssetService"):LoadModel(v.id , CommonStorage["ShopFolder"])
 		end
-		coroutine.wait(0.5) -- 等待加载完成
+		repeat
+			coroutine.wait(0.1) -- 等待加载完成
+		until #product_table >= #CommonStorage["ShopFolder"]:GetAllChild()
 		print("加载商品")
 	end
 end
@@ -757,6 +762,21 @@ local function GetBuyedShop(player)
 	end
 	print("获取已购商品名")
 	return buyedShopNameTable
+end
+-- 旋转商品模型函数
+local function RotateShopModels()
+	local shopModelTable = WorkSpace[FunTable.SysCallTable.ShopTable.shop]:GetAllChild() -- 商品模型表
+	for _ , v in pairs(shopModelTable) do 
+		local accessoryModel = v:GetChildByClassName("Model")
+		if accessoryModel:GetChildByClassName("MeshPart") ~= nil then
+			local modelShop = accessoryModel:GetChildByClassName("MeshPart")
+			FunTable.SysCallTable.SysMyselfRotate(modelShop) -- 调用对象自转协程函数
+		elseif accessoryModel:GetChildByClassName("UnionOperation") ~= nil then
+			local modelShop = accessoryModel:GetChildByClassName("UnionOperation")
+			FunTable.SysCallTable.SysMyselfRotate(modelShop) -- 调用对象自转协程函数
+		end
+	end
+	print("旋转商品模型")
 end
 -- 角色加载装备已购商品事件函数
 local function AvatarAddedEquipShop(player)
@@ -810,12 +830,28 @@ function ShopServer(product_table , player)
 	CallClientEvent() -- 调用更新金额事件函数
 	RecordBuyedShop()-- 调用记录已购商品事件函数
 	LoadAccessory(product_table) -- 调用加载商品函数(配饰)
-	coroutine.wait(0.5) -- 等待玩家角色加载完成
-	EquipShop() -- 调用装备商品事件函数
-	AvatarAddedEquipShop(player) -- 调用角色加载装备已购商品事件函数
-	AvatarDeadLoad(player) -- 调用玩家死亡重新加载商品函数
+	RotateShopModels() -- 调用旋转商品模型函数
+	-- 协程开始函数
+	coroutine.start(function()
+			coroutine.wait(0.5) -- 等待玩家角色加载完成
+			EquipShop() -- 调用装备商品事件函数
+			AvatarAddedEquipShop(player) -- 调用角色加载装备已购商品事件函数
+			AvatarDeadLoad(player) -- 调用玩家死亡重新加载商品事件函数
+		end)
 end
 --——————————商店系统——————————--
+
+--——————————对象自转协程函数——————————--
+-- rotate_obj 旋转对象
+function FunTable.SysCallTable.SysMyselfRotate(rotate_obj)
+	local transform = GetService("Transform") --获取变换服务服务对象
+	coroutine.start(function()
+			while true do
+				transform:Rotate(rotate_obj , Vector3(0 , 5 , 0)) -- 围绕y轴旋转5度
+				coroutine.wait(0.05)
+			end
+		end)
+end
 --——————————————————————————CommonStorage——————————————————————————--
 
 --——————————————————————————Server——————————————————————————--
@@ -868,7 +904,7 @@ return FunTable
 
 　　　　　　示例:  
 　　　　　　*注: 代码已折叠*  
-　　　　　　![图](/图片/FunTableCode.png ':size=50%')
+　　　　　　![图](/图片/FunTable_Shop.jpg ':size=50%')　　　　　　　　　　　　　　　　　　![图](/图片/FunTable_Shop1.jpg ':size=50%')
 
 > [!note|label:效果]
 
