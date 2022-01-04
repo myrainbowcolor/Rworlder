@@ -26,7 +26,7 @@
 @endmindmap
 ```
 
-> [!note]*角色加载完成后**FunTable.InitTable.Shop(player,S_C)**都会执行一次*
+> [!note]* 角色加载完成后 * **FunTable.InitTable.Shop(player,S_C)** * 都会执行一次 *
 - (客户端脚本)
 
 ```lua
