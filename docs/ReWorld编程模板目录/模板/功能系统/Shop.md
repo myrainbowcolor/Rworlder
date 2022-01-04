@@ -70,8 +70,8 @@ AvatarAdded()
 　　　　　　![图](/图片/ClientLogic.jpg ':size=50%')
 
 
-> [!note]*对于__FunTable.SysCallTable.UpdateMonney(monney_value,Uid)__函数,该函数用于提供给使用者更新商城的金额数据*;  
-*在金额有变动时,需要调用该函数进行更新显示,值得注意的是,该函数传入的参数是更新后的金额,既先获取原有金额进行计算后在传入计算后的金额 .*
+> [!note]*对于**FunTable.SysCallTable.UpdateMonney****(monney_value,Uid)**函数,该函数用于提供给使用者更新商城的金额数据;  
+在金额有变动时,需要调用该函数进行更新显示,值得注意的是,该函数传入的参数是更新后的金额,既先获取原有金额进行计算后在传入计算后的金额 .*
 - (服务器脚本)
 
 
@@ -330,16 +330,16 @@ FunTable.SysCallTable.ShopTable = {
 	},
 	--商店UI的ID表
 	shopuitable_id={
-		leftButtonId="rwid://T7k.PKFOH7sK9okijN",
-		rightButtonId="rwid://T7k.PK.yW7sK9okijN",
-		shopButtonId="rwid://T7kKPK5F2QsK9okijN",
-		buyButtonId="rwid://T7k.PKMC37sK9okijN",
-		closeButtonId="rwid://T7k.PKSR3QsK9okijN",
-		monneyImageId= "rwid://T7k.PKldUx0d9okijN",
-		monneyInsufficientId= "rwid://T78iPK49U7sK9okijN",
-		buySuccessId= "rwid://T7kKPKPMP7sK9okijN",
-		ownedshop = "rwid://T78iPKU0xQsK9okijN"
-	}
+			leftButtonId="rwid://T7k.PKFOH7sK9okijN",
+			rightButtonId="rwid://T7k.PK.yW7sK9okijN",
+			shopButtonId="rwid://T7kKPK5F2QsK9okijN",
+			buyButtonId="rwid://T7k.PKMC37sK9okijN",
+			closeButtonId="rwid://T7k.PKSR3QsK9okijN",
+			monneyImageId= "rwid://T7k.PKldUx0d9okijN",
+			monneyInsufficientId= "rwid://T78iPK49U7sK9okijN",
+			buySuccessId= "rwid://T7kKPKPMP7sK9okijN",
+			ownedshop = "rwid://T78iPKU0xQsK9okijN"
+		}
 }
 -- 创建商店UI函数
 local function EstablishUi(shopuitable_id,player)
@@ -906,10 +906,27 @@ return FunTable
 　　　　　　*注: 代码已折叠*  
 　　　　　　![图](/图片/FunTable_Shop.jpg ':size=50%')　　　　　　　　　　　　　　　　　　![图](/图片/FunTable_Shop1.jpg ':size=50%')
 
-> [!note|label:效果]
+> [!note|label:商店]*在工作区创建下图内容,注意名字一致*
 
-　　　　　　一:　　　　　　　　　　二:　　　　　　　　　　　　三:   	
-　　　　　　![图](/图片/效果图1.png ':size=22%')　　　　　![图](/图片/效果图2.png ':size=22%')　　　　　　![图](/图片/效果图3.png ':size=22%')　　　　　　　　　　　　
+　　　　　　示例:   	
+　　　　　　![图](/图片/Shop_WorkSpace.jpg ':size=50%')
+
+> [!note|label:商品文件夹]*存放用于展示的商品模型 , 注:文件层级和类型*
+
+　　　　　　示例:   	
+　　　　　　![图](/图片/ShopTable.jpg ':size=50%')
+
+> [!note|label:商品展示模型处理]*上传商品模型后,处理删除非必要零件,添加需要零件,并命名 , 注:添加零件的朝向属性参数都为0*
+
+　　　　　　示例:   	
+　　　　　　![图](/图片/ShopModel.jpg ':size=50%')
+
+> [!note|label:商品摆放]*摆放用于展示的商品的模型 , 注:添加的摄像机对象需要透明,且其高度需要反复调试,寻找适合的高度*
+
+　　　　　　示例:   	
+　　　　　　![图](/图片/摆放.jpg ':size=50%')
+
+> [!note|label:效果]　　　　　　　　　　
 
   　　　　　　示例:  
 　　　　　　![](/视频/引导.gif "-gifcontrol-mode=click;")
