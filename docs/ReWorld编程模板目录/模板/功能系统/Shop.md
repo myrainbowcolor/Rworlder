@@ -929,4 +929,4 @@ return FunTable
 > [!note|label:效果]　　　　　　　　　　
 
   　　　　　　示例:  
-　　　　　　![](/视频/引导.gif "-gifcontrol-mode=click;")
+　　　　　　![](/视频/商店.gif "-gifcontrol-mode=click;")
