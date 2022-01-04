@@ -7,13 +7,22 @@
 ** 执行FunTable.InitTable.Folder()
 ** 执行FunTable.InitTable.Event()
 ** 执行FunTable.InitTable.Value()
-*** 每个角色加载事件触发
-**** 执行FunTable.InitTable.Avatar(avatar)
+** 执行PlayerAdded()
+*** 每个玩家加载事件触发
+**** 每个角色加载事件触发
+***** 执行FunTable.InitTable.Avatar(avatar)
+*** 获取存储空间:MONNEYDATASTORE
+*** 获取每个玩家ID对应的金额数值
+*** 判断按并初始化金额数值
+*** 定义:local S_C = "Server"
+*** 执行FunTable.InitTable.Shop(player,S_C)
+*** 执行FunTable.SysCallTable.UpdateMonney(monney_value,Uid)
 
 * 客户端调用
 ** 每个本地角色加载事件触发
 *** 执行FunTable.InitTable.UI(Uid)
-*** 执行FunTable.InitTable.Guide(image_num ,imageid_table ,leftbutton_id ,rightbutton_id ,playerknowbutton_id)
+*** 定义:local S_C = "Client"
+*** 执行FunTable.InitTable.Shop(player,S_C)
 @endmindmap
 ```
 
@@ -80,6 +89,7 @@ FunTable.InitTable.Event()
 -- 初始化数值
 FunTable.InitTable.Value()
 
+-- 初始化角色数据
 local function PlayerAdded()
 	Players.PlayerAdded:Connect(function(Uid)
 			local player=Players:GetPlayerByUserId(Uid)
@@ -87,12 +97,14 @@ local function PlayerAdded()
 					FunTable.InitTable.Avatar(avatar) -- 初始化角色数据
 				end)
 
-			-- 此处添加玩家加载完成后执行的服务器代码
+			local monneyDataStore = GetService("DataStoreService"):FindDataStore("MONNEYDATASTORE") -- 获取MONNEYDATASTORE存储空间
+			local monney_value , b = monneyDataStore:Get(Uid)
+			if monney_value == nil then
+				monney_value = 0
+			end
+--			monney_value = 1000 -- 测试用值
 			local S_C = "Server"
 			FunTable.InitTable.Shop(player,S_C) -- 调用商店系统(服务器)
-			local monneyDataStore = GetService("DataStoreService"):FindDataStore("MONNEYDATASTORE") -- 获取MONNEYDATASTORE存储空间
-		--	local monney_value , b = monneyDataStore:Get(Uid)
-			local monney_value = 1000
 			FunTable.SysCallTable.UpdateMonney(monney_value,Uid) -- 调用更新金额函数
 		end)
 end
@@ -102,6 +114,7 @@ PlayerAdded()
 
 --————————————————————————————————————————ServerLogic————————————————————————————————————————--
 -- 此处编写服务器逻辑
+
 
 
 ```

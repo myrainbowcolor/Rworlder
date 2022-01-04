@@ -6,16 +6,39 @@
 > [!note|label:逻辑图]
 ```plantuml
 @startmindmap
-* 服务器调用
-** 执行FunTable.InitTable.Folder()
-** 执行FunTable.InitTable.Event()
-** 执行FunTable.InitTable.Value()
-*** 每个角色加载事件触发
-**** 执行FunTable.InitTable.Avatar(avatar)
+* 构成
+** 定义函数表:FunTable = {{}}
+** 定义随机种子
 
-* 客户端调用
-** 每个本地角色加载事件触发
-*** 执行FunTable.InitTable.UI(Uid)
+** 定义初始化函数表FunTable.InitTable = {}
+*** CommonStorage
+**** FunTable.InitTable.Event()
+**** FunTable.InitTable.Folder()
+**** FunTable.InitTable.Value()
+*** Server
+**** FunTable.InitTable.Avatar(avatar)
+*** Client
+**** FunTable.InitTable.UI(Uid)
+**** FunTable.InitTable.Camera()
+**** FunTable.InitTable.Environment()
+
+** 定义系统函数表FunTable.SysCallTable = {}
+*** CommonStorage
+****_ 此处编写通用存储模块代码
+*** Server
+****_ 此处编写服务器代码
+*** Client
+****_ 此处编写客户端代码
+
+** 定义自定义函数表FunTable.MyCallTable = {}
+*** CommonStorage
+****_ 此处编写通用存储模块代码
+*** Server
+****_ 此处编写服务器代码
+*** Client
+****_ 此处编写客户端代码
+
+** 返回函数表:FunTable
 @endmindmap
 ```
 

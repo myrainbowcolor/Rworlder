@@ -7,8 +7,10 @@
 ** 执行FunTable.InitTable.Folder()
 ** 执行FunTable.InitTable.Event()
 ** 执行FunTable.InitTable.Value()
-*** 每个角色加载事件触发
-**** 执行FunTable.InitTable.Avatar(avatar)
+** 执行PlayerAdded()
+*** 每个玩家加载事件触发
+**** 每个角色加载事件触发
+***** 执行FunTable.InitTable.Avatar(avatar)
 
 * 客户端调用
 ** 每个本地角色加载事件触发
@@ -480,7 +482,7 @@ return FunTable
 
 > [!note|label:效果]
 
-　　　　　　一:　　　　　　　　　　二:　　　　　　　　　　　　三:   	
+　　　　　　效果一:　　　　　　　　　　效果二:　　　　　　　　　　　　效果三:   	
 　　　　　　![图](/图片/效果图1.png ':size=22%')　　　　　![图](/图片/效果图2.png ':size=22%')　　　　　　![图](/图片/效果图3.png ':size=22%')　　　　　　　　　　　　
 
   　　　　　　示例:  
