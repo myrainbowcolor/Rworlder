@@ -26,7 +26,7 @@
 @endmindmap
 ```
 
-> [!note] *角色加载完成后__FunTable.InitTable.Shop(player,S_C)__都会执行一次*
+> [!note] * 角色加载完成后**FunTable.InitTable.****Shop(player,S_C)**都会执行一次*
 - (客户端脚本)
 
 ```lua
@@ -70,8 +70,8 @@ AvatarAdded()
 　　　　　　![图](/图片/ClientLogic.jpg ':size=50%')
 
 
-> [!note]*对于**FunTable.SysCallTable.UpdateMonney** **(monney_value,Uid)**函数,该函数用于提供给使用者更新商城的金额数据;  
-在金额有变动时,需要调用该函数进行更新显示,值得注意的是,该函数传入的参数是更新后的金额,既先获取原有金额进行计算后在传入计算后的金额 .*
+> [!note]* 对于**FunTable.SysCallTable.UpdateMonney****(monney_value,Uid)**函数,该函数用于提供给使用者更新商城的金额数据;*  
+* 在金额有变动时,需要调用该函数进行更新显示,值得注意的是,该函数传入的参数是更新后的金额,既先获取原有金额进行计算后在传入计算后的金额 .*
 - (服务器脚本)
 
 
